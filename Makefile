@@ -4,7 +4,7 @@ BREW_TAPS=caskroom/versions
 BREW_CASK_DEPS=java8
 
 # --config
-.DEFAULT_GOAL := local.run
+.DEFAULT_GOAL := image.build
 
 # --targets
 unprepare:
@@ -40,5 +40,6 @@ local.run: prepcheck local.build
 local.quit:
 	ps -ef | grep runServer | grep gradle | awk '{print $2}' | xargs kill -9
 
-image.build:
-	docker build . --tag kotlin-boiler:local
+image.build: local.build
+	docker build . --tag hello-world-server:local
+	docker run -m512M --cpus 2 -it -p 8080:8080 --rm hello-world-server:local
