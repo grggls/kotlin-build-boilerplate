@@ -32,6 +32,7 @@ local.test:
 
 local.build:
 	./gradlew buildServer
+	make local.test
 	@echo; ls -la ./build/libs/hello-world-server.jar
 
 local.run: prepcheck local.build
